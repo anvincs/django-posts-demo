@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block title %} Posts{% endblock %} 
+{% block content%}
+<section>
+<h1>Posts List</h1>
+
+{% for post in posts %}
+{% comment %} This refers to the posts passed during render call from views.py {% endcomment %}
+<article class="post">
+  <h2>
+    <a href="{% url 'posts:page' slug=post.slug %}">
+    {{post.title}}
+    </a>
+  </h2>
+  <p>{{post.date}}</p>
+  <p>{{post.body}}</p>
+</article>
+</section>
+{% endfor %}
+{% endblock %}
+{% comment %} These blocks will replace the ones in the extended
+  template (here layout.html) {% endcomment %}
