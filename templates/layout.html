@@ -45,9 +45,29 @@
           >📰</span
         ></a
       >
-      {% comment %} the url 'posts' refers to the name for the link we gave to
-      that path in the urls.py in the post directory {% endcomment %} |
-      <a href="{% url 'users:register' %}"
+      
+      
+      |
+      {% if user.is_authenticated %}
+      {% comment %} to conditionally show links only if the user is logged in {% endcomment %}
+        <a href="{% url 'posts:new-post' %}"
+          ><span
+            role="img"
+            aria-label="New Post"
+            title="New Post"
+            >🆕</span
+          ></a>
+        |
+        <form class="logout" action="{% url 'users:logout' %}" method="post">
+          {% csrf_token %}
+          <button class="logout-button" type="submit" aria-label="User Logout" title="User Logout">
+            👋
+          </button>
+        </form>
+      {% else %}
+        {% comment %} the url 'posts' refers to the name for the link we gave to
+        that path in the urls.py in the post directory {% endcomment %} 
+        <a href="{% url 'users:register' %}"
         ><span
           role="img"
           aria-label="User Registration"
@@ -62,6 +82,8 @@
           title="User Login"
           >🔐</span
         ></a>
+      {% endif %}
+
     </nav>
     <main>{% block content %} {% endblock %}</main>
   </body>
